@@ -21,3 +21,9 @@ If we want to have a dedicated backend that can communicate and authorize reques
 -   [Springboot](https://docs.spring.io/spring-boot/index.html)
 
 Any kind of authorization that is required from a potential REST API could be handled through the Firebase API in Springboot, which provides methods for validating JWT tokens from incoming requests.
+
+### Firebase
+
+Firebase also has document-based storage options, which would avoid the need to write any backend code or host a Database.
+
+-   [Firebase](https://firebase.google.com/docs/firestore/)
