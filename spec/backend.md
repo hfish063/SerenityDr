@@ -50,12 +50,6 @@ graph LR;
 
 Any kind of authorization that is required from a potential REST API could be handled through the Firebase API in Springboot, which provides methods for validating JWT tokens from incoming requests.  The Spring Security libraries allow us to intercept requests, and require certain authentication rules to be valid before acceptign them.
 
-### Firebase
-
-Firebase also has document-based storage options, which would avoid the need to write any backend code or host a Database.
-
--   [Firebase](https://firebase.google.com/docs/firestore/)
-
 ### Running the Application for Development
 
 In order to enable full functionality for the application it will be necessary to run both the frontend and backend on our machines.  Usually the frontend runs locally, and the backend/database is hosted on the cloud or in another location, but this is not necessary for our project.  The only input necessary other than running the program is ensuring that the **database credentials** used for the Docker container match those provided to our backend.  We need to be able to access the database, it would look something like this.
