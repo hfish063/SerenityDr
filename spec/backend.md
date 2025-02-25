@@ -50,7 +50,7 @@ graph LR;
 
 ### Authorization
 
-Any kind of authorization that is required from a potential REST API could be handled through the Firebase API in Springboot, which provides methods for validating JWT tokens from incoming requests.  The Spring Security libraries allow us to intercept requests, and require certain authentication rules to be valid before acceptign them.
+Any kind of authorization that is required from a potential REST API could be handled through the Firebase API in Springboot, which provides methods for validating JWT tokens from incoming requests.  The Spring Security libraries allow us to intercept requests, and require certain authentication rules to be valid before accepting them.
 
 ### Running the Application for Development
 
