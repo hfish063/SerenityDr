@@ -55,3 +55,18 @@ Any kind of authorization that is required from a potential REST API could be ha
 Firebase also has document-based storage options, which would avoid the need to write any backend code or host a Database.
 
 -   [Firebase](https://firebase.google.com/docs/firestore/)
+
+### Running the Application for Development
+
+In order to enable full functionality for the application it will be necessary to run both the frontend and backend on our machines.  Usually the frontend runs locally, and the backend/database is hosted on the cloud or in another location, but this is not necessary for our project.  The only input necessary other than running the program is ensuring that the **database credentials** used for the Docker container match those provided to our backend.  We need to be able to access the database, it would look something like this.
+
+```
+spring.application.name=MyDatabaseApp
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/serenitydr
+spring.datasource.username=root
+spring.datasource.password=password
+
+```
+
+This can be found in the application.properties file of the backend, and the first line is auto generated for you.  The second is telling hibernate (ORM that handles database interaction) to automatically update our schema on changes to entity classes.  Lines 3-5 **must match** the credentials of the MySQL instance you are running in a Docker container.
