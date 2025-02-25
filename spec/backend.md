@@ -20,7 +20,7 @@ If we want to have a dedicated backend that can communicate and authorize reques
 
 -   [Springboot](https://docs.spring.io/spring-boot/index.html)
 
-The general structure for creating backend services is Springboot is as follows.
+The general structure for creating backend services in Springboot is as follows.
 
 ```mermaid
 flowchart LR
