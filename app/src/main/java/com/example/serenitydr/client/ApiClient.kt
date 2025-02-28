@@ -11,10 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object ApiClient {
     // '10.0.2.2' is used to access our machines localhost from within the Android emulator
-    private const val baseUrl: String = "http://10.0.2.2:8080/api/"
+    private const val BASE_URL: String = "http://10.0.2.2:8080/api/"
 
     private val retrofit: Retrofit by lazy {
-        Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
+        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
