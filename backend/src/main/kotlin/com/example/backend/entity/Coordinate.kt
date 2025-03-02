@@ -18,6 +18,7 @@ class Coordinate(
     @Column(name = "order", nullable = "false")
     var order: Int,
 
-    @Column(name = "route_id", nullable = "false")
-    var route_id: Long
+    @ManyToOne
+    @JoinColumn(name = "route_id", nullable = "false")
+    var route: Route
 ) {}
