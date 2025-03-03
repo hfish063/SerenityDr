@@ -1,5 +1,6 @@
 package com.example.backend.entity
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 
 @Entity
@@ -16,5 +17,9 @@ class Route(
         var description: String?,
 
         @Column(name = "uid", nullable = false)
-        var uid: String
+        var uid: String,
+
+        @OneToMany(mappedBy = "route", cascade = [CascadeType.ALL], orphanRemoval = true)
+        @JsonManagedReference
+        var coordinates: MutableList<Coordinate> = mutableListOf(),
 ) {}
