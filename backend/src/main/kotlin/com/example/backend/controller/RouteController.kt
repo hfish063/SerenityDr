@@ -1,6 +1,5 @@
 package com.example.backend.controller
 
-import com.example.backend.dto.RouteDto
 import com.example.backend.entity.Route
 import com.example.backend.service.RouteService
 import org.springframework.web.bind.annotation.*
@@ -19,7 +18,7 @@ class RouteController(private val routeService: RouteService) {
     }
 
     @PostMapping("/save")
-    fun addRoute(@RequestBody routeRequest: RouteDto): Route {
-        return routeService.saveRoute(routeRequest.toEntity())
+    fun addRoute(@RequestBody routeRequest: Route): Route {
+        return routeService.saveRoute(routeRequest)
     }
 }

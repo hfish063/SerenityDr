@@ -1,12 +1,14 @@
 package com.example.backend.service
 
+import com.example.backend.entity.Coordinate
 import com.example.backend.entity.Route
 import com.example.backend.error.EntityNotFoundException
+import com.example.backend.repository.CoordinateRepository
 import com.example.backend.repository.RouteRepository
 import org.springframework.stereotype.Service
 
 @Service
-class RouteService(private val routeRepository: RouteRepository) {
+class RouteService(private val routeRepository: RouteRepository, private val coordinateRepository: CoordinateRepository) {
     fun getAllRoutes(): List<Route> {
         return routeRepository.findAll()
     }
@@ -22,6 +24,15 @@ class RouteService(private val routeRepository: RouteRepository) {
     }
 
     fun saveRoute(route: Route): Route {
-        return routeRepository.save(route)
+        val savedRoute = routeRepository.save(route)
+        val coordinateEntities: MutableList<Coordinate> = mutableListOf()
+
+        route.coordinates.forEach { coordinateDto ->
+            coordinateEntities += Coordinate(latitude = coordinateDto.latitude,
+                    longitude = coordinateDto.longitude, order = coordinateDto.order, route = savedRoute)
+        }
+        coordinateRepository.saveAll(coordinateEntities)
+
+        return savedRoute
     }
 }
