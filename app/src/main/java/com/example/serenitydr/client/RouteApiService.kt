@@ -13,7 +13,7 @@ val routeApiService: RouteApiService =
 
 interface RouteApiService {
     @GET("/routes/all")
-    fun getAllRoutes(): Response<List<RouteModel>>
+    fun findAllRoutes(): Response<List<RouteModel>>
 
     @Headers("Content-Type: application/json")
     @POST("/routes/save")
