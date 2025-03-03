@@ -1,4 +1,11 @@
 package com.example.serenitydr.request
 
-data class RouteRequest(val title: String, val description: String?, val uid: String = "UID") {
+import com.example.serenitydr.model.Coordinate
+
+data class RouteRequest(
+    val title: String,
+    val description: String?,
+    val coordinates: List<Coordinate>,
+    val uid: String = "UID"
+) {
 }
