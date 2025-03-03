@@ -1,5 +1,6 @@
 package com.example.backend.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
 @Entity
@@ -15,10 +16,11 @@ class Coordinate(
         @Column(name = "longitude", nullable = false)
         var longitude: Double,
 
-        @Column(name = "order", nullable = false)
+        @Column(name = "position", nullable = false)
         var order: Int,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "route_id", nullable = false)
+        @JsonBackReference
         var route: Route
 ) {}
