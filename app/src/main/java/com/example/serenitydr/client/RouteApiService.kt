@@ -1,6 +1,6 @@
 package com.example.serenitydr.client
 
-import com.example.serenitydr.model.RouteModel
+import com.example.serenitydr.model.Route
 import com.example.serenitydr.request.RouteRequest
 import retrofit2.Response
 import retrofit2.http.Body
@@ -9,13 +9,13 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 val routeApiService: RouteApiService =
-    ApiClient.buildService(serviceClass = RouteApiService::class.java)
+    backendApiClient.buildService(serviceClass = RouteApiService::class.java)
 
 interface RouteApiService {
     @GET("/routes/all")
-    fun findAllRoutes(): Response<List<RouteModel>>
+    fun findAllRoutes(): Response<List<Route>>
 
     @Headers("Content-Type: application/json")
     @POST("/routes/save")
-    fun saveRoute(@Body routeRequest: RouteRequest): Response<RouteModel>
+    fun saveRoute(@Body routeRequest: RouteRequest): Response<Route>
 }
