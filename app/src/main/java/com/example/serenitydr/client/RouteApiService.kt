@@ -13,9 +13,9 @@ val routeApiService: RouteApiService =
 
 interface RouteApiService {
     @GET("/routes/all")
-    fun findAllRoutes(): Response<List<Route>>
+    suspend fun findAllRoutes(): Response<List<Route>>
 
     @Headers("Content-Type: application/json")
     @POST("/routes/save")
-    fun saveRoute(@Body routeRequest: RouteRequest): Response<Route>
+    suspend fun saveRoute(@Body routeRequest: RouteRequest): Response<Route>
 }
