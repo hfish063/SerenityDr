@@ -7,7 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
-import retrofit2.http.Path
 
 val routeApiService: RouteApiService =
     backendApiClient.buildService(serviceClass = RouteApiService::class.java)
@@ -15,9 +14,6 @@ val routeApiService: RouteApiService =
 interface RouteApiService {
     @GET("/routes/all")
     suspend fun findAllRoutes(): Response<List<Route>>
-
-    @GET("/routes/{routeId}")
-    suspend fun findRoute(@Path("routeId") routeId: Long): Response<Route>
 
     @Headers("Content-Type: application/json")
     @POST("/routes/save")
