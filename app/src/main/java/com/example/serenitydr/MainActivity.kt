@@ -23,12 +23,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.serenitydr.model.Coordinate
 import com.example.serenitydr.ui.theme.SerenityDrTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 class MainActivity : ComponentActivity() {
@@ -73,7 +76,7 @@ fun SaveRouteScreen() {
 
     var routeTitle by remember { mutableStateOf("") }
     var routeDesc by remember { mutableStateOf("") }
-
+    var routeCoords by remember { mutableStateOf(emptyList<Coordinate>()) }
 
     Column(
         modifier = Modifier
@@ -98,8 +101,25 @@ fun SaveRouteScreen() {
         ) {
             GoogleMap(
                 cameraPositionState = cameraPos,
-                properties = MapProperties(mapType = MapType.NORMAL)
-            )
+                properties = MapProperties(mapType = MapType.NORMAL),
+                onMapClick = { latLng ->
+                    routeCoords = routeCoords + Coordinate(
+                        latitude = latLng.latitude,
+                        longitude = latLng.longitude,
+                        order = routeCoords.count(),
+                        id = 0
+                    )
+                }
+            ) {
+                //do google map calls here?
+                routeCoords.forEach { routeCoord ->
+                    Marker(
+                        state = MarkerState(
+                            position = LatLng(routeCoord.latitude, routeCoord.longitude)
+                        )
+                    )
+                }
+            }
         }
         TextField(
             value = routeDesc,
