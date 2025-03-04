@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val backendApiClient = ApiClient()
 val googleApiClient = ApiClient(baseUrl = "")
 
-class ApiClient(private val baseUrl: String = "http://10.0.2.2:8080/api/") {
+class ApiClient(private val baseUrl: String = "http://localhost:10.0.2.2:8080/api/") {
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
             .build()
