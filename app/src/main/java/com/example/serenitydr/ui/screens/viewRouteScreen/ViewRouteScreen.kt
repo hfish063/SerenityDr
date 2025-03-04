@@ -26,7 +26,7 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun ViewRouteScreen() {
+fun ViewRouteScreen(routeId: Long = 0L) {
     val temp = LatLng(.001, .001)
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 10f)
@@ -65,9 +65,11 @@ fun ViewRouteScreen() {
                 )
             }
         }
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
+        ) {
             when (tabIndex) {
                 0 -> Text("Route Description")
                 1 -> Text("Route Reviews")
