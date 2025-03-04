@@ -15,6 +15,8 @@ interface RouteApiService {
     @GET("routes/all")
     suspend fun findAllRoutes(): Response<List<Route>>
 
+    // TODO: Find a specific route w/ routeId path variable
+
     @Headers("Content-Type: application/json")
     @POST("routes/save")
     suspend fun saveRoute(@Body routeRequest: RouteRequest): Response<Route>
