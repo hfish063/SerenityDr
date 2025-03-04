@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -37,13 +38,19 @@ fun ViewRouteScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 8.dp)
     ) {
-        Text(fontSize = 36.sp, text = "Route Title", maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            fontSize = 36.sp,
+            text = "Route Title",
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        HorizontalDivider(thickness = 1.dp)
         Box(
             Modifier
                 .fillMaxHeight(0.5f)
-                .padding(vertical = 8.dp)
+                .padding(8.dp)
         ) {
             GoogleMap(
                 cameraPositionState = cameraPos,
@@ -58,7 +65,9 @@ fun ViewRouteScreen() {
                 )
             }
         }
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)) {
             when (tabIndex) {
                 0 -> Text("Route Description")
                 1 -> Text("Route Reviews")
