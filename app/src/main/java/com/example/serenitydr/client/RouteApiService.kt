@@ -12,10 +12,10 @@ val routeApiService: RouteApiService =
     backendApiClient.buildService(serviceClass = RouteApiService::class.java)
 
 interface RouteApiService {
-    @GET("/routes/all")
+    @GET("routes/all")
     suspend fun findAllRoutes(): Response<List<Route>>
 
     @Headers("Content-Type: application/json")
-    @POST("/routes/save")
+    @POST("routes/save")
     suspend fun saveRoute(@Body routeRequest: RouteRequest): Response<Route>
 }
