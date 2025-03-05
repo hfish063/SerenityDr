@@ -40,7 +40,7 @@ fun ViewRouteScreen(routeId: Long = 0L) {
     var tabIndex by remember { mutableIntStateOf(0) }
     val tabs = listOf("Details", "Reviews")
 
-    if (!routeDetails.isLoading) {
+    if (!routeDetails.isLoading && routeDetails.error == null) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
