@@ -26,11 +26,19 @@ class ViewRouteScreenViewModel : ViewModel() {
             try {
                 // TODO: Fetch route by id from ApiService class method
                 val response = null
-                _routeState.value =
-                    _routeState.value.copy(isLoading = false, route = response, error = null)
+                setSuccessfulResponse(response)
             } catch (e: Exception) {
-                _routeState.value = _routeState.value.copy(isLoading = false, error = e.message)
+                setError(e)
             }
         }
+    }
+
+    private fun setSuccessfulResponse(response: Route?) {
+        _routeState.value =
+            _routeState.value.copy(isLoading = false, route = response, error = null)
+    }
+
+    private fun setError(e: Exception) {
+        _routeState.value = _routeState.value.copy(isLoading = false, error = e.message)
     }
 }
