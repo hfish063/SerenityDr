@@ -22,7 +22,7 @@ class SaveRouteScreenViewModel : ViewModel() {
 
     fun onDescChange(newD: String) {
         _routeState.value.route.title = newD
-        println(_routeState.value.route.title)
+        println(routeState.value.route.title)
     }
 
     fun addCoord(lat: Double, lng: Double) {
@@ -38,6 +38,7 @@ class SaveRouteScreenViewModel : ViewModel() {
 
     fun handleSaveRoute() {
         //Validation for route data
+        println("SAVING")
         if (_routeState.value.route.title.length < 5)
             return
 

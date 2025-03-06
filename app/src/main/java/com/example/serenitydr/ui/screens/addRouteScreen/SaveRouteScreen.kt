@@ -10,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,15 +26,15 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 
 @Composable
-fun SaveRouteScreen() {
-    val saveRouteViewModel: SaveRouteScreenViewModel = viewModel()
+fun SaveRouteScreen(saveRouteViewModel: SaveRouteScreenViewModel = viewModel()) {
     val routeDetails by remember { saveRouteViewModel.routeState }
     val temp = LatLng(.001, .001)
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 10f)
     }
 
-    val title: String = saveRouteViewModel.routeState.value.route.title
+    val title: String = routeDetails.route.title
+    val description: String = routeDetails.route.description ?: ""
 
     Column(
         modifier = Modifier
@@ -74,7 +75,7 @@ fun SaveRouteScreen() {
             }
         }
         TextField(
-            value = saveRouteViewModel.routeState.value.route.description ?: "",
+            value = description,
             label = { Text("Description") },
             onValueChange = { saveRouteViewModel.onDescChange(it) },
             modifier = Modifier
