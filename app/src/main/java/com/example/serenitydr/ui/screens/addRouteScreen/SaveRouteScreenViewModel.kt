@@ -3,8 +3,12 @@ package com.example.serenitydr.ui.screens.addRouteScreen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.serenitydr.client.routeApiService
 import com.example.serenitydr.model.Coordinate
 import com.example.serenitydr.model.Route
+import com.example.serenitydr.request.RouteRequest
+import kotlinx.coroutines.launch
 
 data class AddRouteScreenState(
     var isLoading: Boolean = true,
@@ -47,12 +51,32 @@ class SaveRouteScreenViewModel : ViewModel() {
     }
 
     fun handleSaveRoute() {
-        //Validation for route data
-        println("SAVING")
-        if (_routeState.value.route.title.length < 5)
+        if (!validTitle())
             return
 
-        //SEND DATA HERE
+        viewModelScope.launch {
+            try {
+                val routeReq = buildRouteRequest()
+                routeApiService.saveRoute(routeReq)
+            } catch (e: Exception) {
+                setError(e)
+            }
+        }
+    }
 
+    private fun validTitle(): Boolean {
+        return _routeState.value.route.title.length > 5
+    }
+
+    private fun buildRouteRequest(): RouteRequest {
+        return RouteRequest(
+            title = _routeState.value.route.title,
+            description = _routeState.value.route.description,
+            coordinates = _routeState.value.route.coordinates
+        )
+    }
+
+    private fun setError(e: Exception) {
+        _routeState.value = _routeState.value.copy(isLoading = false, error = e.message)
     }
 }
