@@ -79,7 +79,11 @@ class SaveRouteScreenViewModel : ViewModel() {
 
     private fun setSuccessfulResult() {
         _routeState.value =
-            _routeState.value.copy(isLoading = false, route = Route(0, "", "", emptyList()))
+            _routeState.value.copy(
+                isLoading = false,
+                route = Route(0, "", "", emptyList()),
+                error = null
+            )
     }
 
     private fun setError(e: Exception) {
