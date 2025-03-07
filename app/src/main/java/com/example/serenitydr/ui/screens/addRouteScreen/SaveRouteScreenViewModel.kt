@@ -58,6 +58,7 @@ class SaveRouteScreenViewModel : ViewModel() {
             try {
                 val routeReq = buildRouteRequest()
                 routeApiService.saveRoute(routeReq)
+                setSuccessfulResult()
             } catch (e: Exception) {
                 setError(e)
             }
@@ -74,6 +75,11 @@ class SaveRouteScreenViewModel : ViewModel() {
             description = _routeState.value.route.description,
             coordinates = _routeState.value.route.coordinates
         )
+    }
+
+    private fun setSuccessfulResult() {
+        _routeState.value =
+            _routeState.value.copy(isLoading = false, route = Route(0, "", "", emptyList()))
     }
 
     private fun setError(e: Exception) {
