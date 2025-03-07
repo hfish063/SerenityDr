@@ -26,7 +26,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 
 @Composable
-fun SaveRouteScreen(saveRouteViewModel: SaveRouteScreenViewModel = viewModel()) {
+fun SaveRouteScreen() {
+    val saveRouteViewModel: SaveRouteScreenViewModel = viewModel()
     val routeDetails by remember { saveRouteViewModel.routeState }
     val temp = LatLng(.001, .001)
     val cameraPos = rememberCameraPositionState() {
@@ -42,7 +43,7 @@ fun SaveRouteScreen(saveRouteViewModel: SaveRouteScreenViewModel = viewModel()) 
             .padding(horizontal = 8.dp)
     ) {
         TextField(
-            value = title,
+            value = routeDetails.route.title,
             singleLine = true,
             label = { Text("Title") },
             onValueChange = { saveRouteViewModel.onTitleChange(it) },
@@ -65,7 +66,7 @@ fun SaveRouteScreen(saveRouteViewModel: SaveRouteScreenViewModel = viewModel()) 
                 }
             ) {
                 //do google map calls here?
-                saveRouteViewModel.routeState.value.route.coordinates.forEach { routeCoord ->
+                routeDetails.route.coordinates.forEach { routeCoord ->
                     Marker(
                         state = MarkerState(
                             position = LatLng(routeCoord.latitude, routeCoord.longitude)
