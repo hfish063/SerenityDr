@@ -30,7 +30,6 @@ class SaveRouteScreenViewModel : ViewModel() {
         _routeState.value = _routeState.value.copy(
             route = _routeState.value.route.copy(description = newD)
         )
-        println(routeState.value.route.description)
     }
 
     fun addCoord(lat: Double, lng: Double) {
