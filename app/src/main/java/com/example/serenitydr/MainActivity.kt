@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.serenitydr.ui.theme.SerenityDrTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -30,6 +31,8 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.rememberCameraPositionState
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +43,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         //We Might want to move this
-                        SaveRouteScreen()
+                        MainScreen()
+
+
                     }
                 }
             }
@@ -65,7 +70,7 @@ fun GreetingPreview() {
 }
 
 @Composable
-fun SaveRouteScreen() {
+fun SaveRouteScreen(navController: NavHostController) {
     val temp = LatLng(.001, .001)
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 10f)
@@ -111,7 +116,14 @@ fun SaveRouteScreen() {
                 .padding(horizontal = 8.dp)
         )
         Button(
-            onClick = { handleSaveRoute(routeTitle, routeDesc) },
+            onClick = {
+                handleSaveRoute(routeTitle, routeDesc)
+                if (navController.previousBackStackEntry != null) {
+                    navController.popBackStack()
+                } else {
+                    navController.navigate("explore") // Ensure we go back to a valid screen
+                }
+            },
         ) { Text("Submit") }
     }
 }
@@ -124,3 +136,4 @@ fun handleSaveRoute(title: String, desc: String) {
     //SEND DATA HERE
 
 }
+

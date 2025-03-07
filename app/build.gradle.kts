@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.maps.compose)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
