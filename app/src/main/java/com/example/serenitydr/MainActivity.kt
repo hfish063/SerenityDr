@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.serenitydr.ui.screens.addRouteScreen.SaveRouteScreen
 import com.example.serenitydr.ui.screens.viewRouteScreen.ViewRouteScreen
 import com.example.serenitydr.ui.theme.SerenityDrTheme
@@ -29,6 +30,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.example.serenitydr.ui.screens.uiScreen.MainScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         //We Might want to move this
-                        SaveRouteScreen()
+                        MainScreen()
                     }
                 }
             }
@@ -47,7 +49,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun PreviewViewRouteScreen() {
     ViewRouteScreen()
@@ -57,5 +59,5 @@ fun PreviewViewRouteScreen() {
 @Composable
 fun PreviewAddRouteScreen() {
     SaveRouteScreen()
-}
+}*/
 

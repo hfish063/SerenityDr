@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.serenitydr.ui.composables.LoadingIcon
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -27,7 +28,7 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun ViewRouteScreen(routeId: Long = 0L) {
+fun ViewRouteScreen(routeId: Long = 0L, navController: NavController) {
     val routeScreenViewModel: ViewRouteScreenViewModel = viewModel()
     val routeDetails by remember { routeScreenViewModel.routeState }
     
