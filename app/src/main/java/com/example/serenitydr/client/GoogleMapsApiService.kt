@@ -1,7 +1,6 @@
 package com.example.serenitydr.client
 
 import com.example.serenitydr.model.Coordinate
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,8 +11,9 @@ interface GoogleMapsApiService {
     @GET("snapToRoads")
     suspend fun getRoute(
         @Query("path") path: String,
+        @Query("interpolate") interpolate: Boolean = true,
         @Query("key") key: String = ""
-    ): Response<List<GMPlace>>
+    ): GMSnappedPoints
 }
 
 data class GMlatlng(
@@ -25,6 +25,11 @@ data class GMPlace(
     val location: GMlatlng,
     val placeId: String
 )
+
+data class GMSnappedPoints(
+    val snappedPoints: List<GMPlace>
+)
+
 
 fun pathAsString(coords: List<Coordinate>): String {
     var path = ""

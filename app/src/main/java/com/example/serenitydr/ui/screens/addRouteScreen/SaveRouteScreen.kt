@@ -29,9 +29,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun SaveRouteScreen() {
     val saveRouteViewModel: SaveRouteScreenViewModel = viewModel()
     val routeDetails by remember { saveRouteViewModel.routeState }
-    val temp = LatLng(.001, .001)
+    val temp = LatLng(34.2164, -119.0376)
     val cameraPos = rememberCameraPositionState() {
-        position = CameraPosition.fromLatLngZoom(temp, 10f)
+        position = CameraPosition.fromLatLngZoom(temp, 15f)
     }
 
     val title: String = routeDetails.route.title
