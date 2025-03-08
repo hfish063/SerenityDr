@@ -30,7 +30,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun ViewRouteScreen(routeId: Long = 0L) {
     val routeScreenViewModel: ViewRouteScreenViewModel = viewModel()
     val routeDetails by remember { routeScreenViewModel.routeState }
-
+    
     val temp = LatLng(34.2164, 119.0376)
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 10f)
