@@ -1,14 +1,21 @@
 package com.example.serenitydr.client
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val backendApiClient = ApiClient()
-val googleApiClient = ApiClient(baseUrl = "")
+val googleApiClient = ApiClient(baseUrl = "https://roads.googleapis.com/v1/")
 
 class ApiClient(private val baseUrl: String = "http://10.0.2.2:8080/api/") {
+    private val loggingInterceptor =
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    private val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+
     private val retrofit: Retrofit by lazy {
-        Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
+        Retrofit.Builder().baseUrl(baseUrl).client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
