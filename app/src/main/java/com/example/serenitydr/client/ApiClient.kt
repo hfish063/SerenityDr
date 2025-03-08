@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val backendApiClient = ApiClient()
-val googleApiClient = ApiClient(baseUrl = "")
+val googleApiClient = ApiClient(baseUrl = "https://roads.googleapis.com/v1/")
 
 class ApiClient(private val baseUrl: String = "http://10.0.2.2:8080/api/") {
     private val retrofit: Retrofit by lazy {
