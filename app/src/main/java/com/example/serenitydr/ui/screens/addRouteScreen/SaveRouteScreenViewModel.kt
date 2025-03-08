@@ -4,6 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.serenitydr.client.googleMapsService
+import com.example.serenitydr.client.pathAsString
 import com.example.serenitydr.client.routeApiService
 import com.example.serenitydr.model.Coordinate
 import com.example.serenitydr.model.Route
@@ -47,6 +49,20 @@ class SaveRouteScreenViewModel : ViewModel() {
                 )
             )
         )
+        if (_routeState.value.route.coordinates.count() < 2)
+            return
+        viewModelScope.launch {
+            try {
+                println("CHECKING MAP")
+                val response =
+                    googleMapsService.getRoute(pathAsString(_routeState.value.route.coordinates))
+                println(response.toString())
+            } catch (e: Exception) {
+                setError(e)
+            }
+        }
+
+        //SEND API FOR ROUTE
     }
 
     fun handleSaveRoute() {
