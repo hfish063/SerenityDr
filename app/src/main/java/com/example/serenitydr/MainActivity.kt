@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,7 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.example.serenitydr.ui.screens.addRouteScreen.SaveRouteScreen
 import com.example.serenitydr.ui.theme.SerenityDrTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -62,65 +60,4 @@ fun GreetingPreview() {
     SerenityDrTheme {
         Greeting("Android")
     }
-}
-
-@Composable
-fun SaveRouteScreen() {
-    val temp = LatLng(.001, .001)
-    val cameraPos = rememberCameraPositionState() {
-        position = CameraPosition.fromLatLngZoom(temp, 10f)
-    }
-
-    var routeTitle by remember { mutableStateOf("") }
-    var routeDesc by remember { mutableStateOf("") }
-
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp)
-    ) {
-        TextField(
-            value = routeTitle,
-            singleLine = true,
-            label = { Text("Title") },
-            onValueChange = { routeTitle = it },
-            placeholder = { Text("A Drive Around the Block") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp)
-
-        )
-        Box(
-            Modifier
-                .fillMaxHeight(0.5f)
-                .padding(horizontal = 8.dp, vertical = 8.dp)
-        ) {
-            GoogleMap(
-                cameraPositionState = cameraPos,
-                properties = MapProperties(mapType = MapType.NORMAL)
-            )
-        }
-        TextField(
-            value = routeDesc,
-            label = { Text("Description") },
-            onValueChange = { routeDesc = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .padding(horizontal = 8.dp)
-        )
-        Button(
-            onClick = { handleSaveRoute(routeTitle, routeDesc) },
-        ) { Text("Submit") }
-    }
-}
-
-fun handleSaveRoute(title: String, desc: String) {
-    //Validation for route data
-    if (title.length < 5)
-        return
-
-    //SEND DATA HERE
-
 }
