@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.serenitydr.client.routeApiService
 import com.example.serenitydr.model.Route
 import kotlinx.coroutines.launch
 
@@ -21,11 +22,18 @@ class ViewRouteScreenViewModel : ViewModel() {
         fetchRoute()
     }
 
+    fun getRouteTitle(): String {
+        return _routeState.value.route?.title ?: ""
+    }
+
+    fun getRouteDescription(): String {
+        return _routeState.value.route?.description ?: ""
+    }
+
     private fun fetchRoute() {
         viewModelScope.launch {
             try {
-                // TODO: Fetch route by id from ApiService class method
-                val response = null
+                val response = routeApiService.findRouteById(1).body()
                 setSuccessfulResponse(response)
             } catch (e: Exception) {
                 setError(e)

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -48,11 +47,10 @@ fun ViewRouteScreen(routeId: Long = 0L) {
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 fontSize = 36.sp,
-                text = "Route Title",
+                text = routeScreenViewModel.getRouteTitle(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            HorizontalDivider(thickness = 1.dp)
             Box(
                 Modifier
                     .fillMaxHeight(0.5f)
@@ -77,7 +75,7 @@ fun ViewRouteScreen(routeId: Long = 0L) {
                     .padding(8.dp)
             ) {
                 when (tabIndex) {
-                    0 -> Text("Route Description")
+                    0 -> Text(routeScreenViewModel.getRouteDescription())
                     1 -> Text("Route Reviews")
                 }
             }
