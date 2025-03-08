@@ -56,13 +56,14 @@ class SaveRouteScreenViewModel : ViewModel() {
                 println("CHECKING MAP")
                 val response =
                     googleMapsService.getRoute(pathAsString(_routeState.value.route.coordinates))
+                println("CHECK FINISHED")
                 println(response.toString())
             } catch (e: Exception) {
                 setError(e)
             }
         }
 
-        //SEND API FOR ROUTE
+        //RENDER ROUTE
     }
 
     fun handleSaveRoute() {
