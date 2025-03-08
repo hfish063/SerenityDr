@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.serenitydr.ui.screens.addRouteScreen.SaveRouteScreen
+import com.example.serenitydr.ui.screens.viewRouteScreen.ViewRouteScreen
 import com.example.serenitydr.ui.theme.SerenityDrTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -46,18 +47,15 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun PreviewViewRouteScreen() {
+    ViewRouteScreen()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    SerenityDrTheme {
-        Greeting("Android")
-    }
+fun PreviewAddRouteScreen() {
+    SaveRouteScreen()
 }
+
