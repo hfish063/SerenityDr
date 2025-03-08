@@ -4,17 +4,20 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.serenitydr.client.GMPlace
 import com.example.serenitydr.client.googleMapsService
 import com.example.serenitydr.client.pathAsString
 import com.example.serenitydr.client.routeApiService
 import com.example.serenitydr.model.Coordinate
 import com.example.serenitydr.model.Route
 import com.example.serenitydr.request.RouteRequest
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
 
 data class AddRouteScreenState(
     var isLoading: Boolean = true,
     var route: Route = Route(0, "", "", emptyList()),
+    var drawPoints: List<GMPlace> = emptyList(),
     var error: String? = null
 )
 
@@ -51,19 +54,58 @@ class SaveRouteScreenViewModel : ViewModel() {
         )
         if (_routeState.value.route.coordinates.count() < 2)
             return
+        redraw()
+    }
+
+    fun removeCoord() {
+        _routeState.value = _routeState.value.copy(
+            route = _routeState.value.route.copy(
+                coordinates =
+
+                _routeState.value.route.coordinates.dropLast(1)
+            )
+        )
+        if (_routeState.value.route.coordinates.count() < 2) {
+            _routeState.value =
+                _routeState.value.copy(drawPoints = emptyList())
+            return
+        }
+        redraw()
+    }
+
+    fun clearCoords() {
+        _routeState.value = _routeState.value.copy(
+            route = _routeState.value.route.copy(
+                coordinates =
+
+                emptyList(),
+            ),
+            drawPoints = emptyList()
+        )
+        redraw()
+    }
+
+    private fun redraw() {
         viewModelScope.launch {
             try {
                 println("CHECKING MAP")
                 val response =
                     googleMapsService.getRoute(pathAsString(_routeState.value.route.coordinates))
-                println("CHECK FINISHED")
-                println(response.toString())
+                _routeState.value =
+                    _routeState.value.copy(drawPoints = response.snappedPoints.toList())
             } catch (e: Exception) {
                 setError(e)
             }
         }
+    }
 
-        //RENDER ROUTE
+    fun polylinePoints(): List<LatLng> {
+        val rv = mutableListOf<LatLng>()
+        for (pt in _routeState.value.drawPoints) {
+            rv.add(LatLng(pt.location.latitude, pt.location.longitude))
+        }
+        println("Polyline Points: $rv")
+        return rv
     }
 
     fun handleSaveRoute() {
