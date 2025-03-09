@@ -15,17 +15,32 @@ class  ListAllRoutesViewModel : ViewModel() {
     var routes by mutableStateOf<List<Route>>(emptyList())
         private set
 
+    var isLoading by mutableStateOf(true)
+        private set
+
+    var errorMessage by mutableStateOf<String?>(null)
+        private set
+
     init {
         fetchRoutes()
     }
 
     private fun fetchRoutes() {
         viewModelScope.launch {
-            val response: Response<List<Route>> = routeApiService.findAllRoutes()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    routes = it
+            try {
+                val response: Response<List<Route>> = routeApiService.findAllRoutes()
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        routes = it
+                    }
+                    errorMessage = null
+                } else {
+                    errorMessage = "Error: ${response.message()}"
                 }
+            } catch (e: Exception) {
+                errorMessage = "Exception: ${e.message}"
+            } finally {
+                isLoading = false
             }
         }
     }
