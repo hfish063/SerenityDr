@@ -1,5 +1,6 @@
 package com.example.serenitydr.ui.screens.listAllRoutesScreen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -56,7 +57,9 @@ fun ViewAllRoutesScreen(
                             modifier = Modifier.fillMaxWidth(),
                             contentAlignment = Alignment.Center
                         ) {
-                            RouteCard(route)
+                            RouteCard(route) {
+                                navController.navigate("viewRoute/${route.id}")
+                            }
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                     }
@@ -68,11 +71,12 @@ fun ViewAllRoutesScreen(
 
 
 @Composable
-fun RouteCard(route: Route) {
+fun RouteCard(route: Route, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth(0.95f)
-            .height(150.dp),
+            .height(150.dp)
+            .clickable { onClick() },
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {

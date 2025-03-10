@@ -30,7 +30,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.serenitydr.R
-
+import com.example.serenitydr.ui.screens.viewRouteScreen.ViewRouteScreen
 
 
 @Composable
@@ -85,6 +85,10 @@ fun ContentNavigationGraph(navController: NavHostController, modifier: Modifier)
         }
         composable("saveRoute") {
             SaveRouteScreen(navController)  // Ensure navController is passed
+        }
+        composable("viewRoute/{routeId}") { backStackEntry ->
+            val routeId = backStackEntry.arguments?.getString("routeId")?.toLongOrNull() ?: 0L
+            ViewRouteScreen(routeId)  // Pass the route ID to ViewRouteScreen
         }
     }
 }
