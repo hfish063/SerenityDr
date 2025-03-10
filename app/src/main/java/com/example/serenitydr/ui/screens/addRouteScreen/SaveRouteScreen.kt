@@ -32,7 +32,6 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 
-//Comment
 @Composable
 fun SaveRouteScreen(navController: NavController) {
     val saveRouteViewModel: SaveRouteScreenViewModel = viewModel()
@@ -41,7 +40,7 @@ fun SaveRouteScreen(navController: NavController) {
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 15f)
     }
-    
+
     val description: String = routeDetails.route.description ?: ""
 
     Column(
@@ -79,7 +78,6 @@ fun SaveRouteScreen(navController: NavController) {
                     endCap = RoundCap(),
                     startCap = RoundCap()
                 )
-                //do google map calls here?
                 routeDetails.route.coordinates.forEach { routeCoord ->
                     Marker(
                         state = MarkerState(

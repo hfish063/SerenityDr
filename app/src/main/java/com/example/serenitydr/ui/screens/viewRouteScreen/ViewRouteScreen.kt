@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.serenitydr.ui.composables.LoadingIcon
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -31,7 +30,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun ViewRouteScreen(routeId: Long = 0L) {
     val routeScreenViewModel: ViewRouteScreenViewModel = viewModel()
     val routeDetails by remember { routeScreenViewModel.routeState }
-    
+
     val temp = LatLng(34.2164, 119.0376)
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 10f)

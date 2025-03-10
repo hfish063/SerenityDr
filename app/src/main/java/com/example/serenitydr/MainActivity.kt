@@ -9,13 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.serenitydr.ui.screens.addRouteScreen.SaveRouteScreen
-import com.example.serenitydr.ui.screens.viewRouteScreen.ViewRouteScreen
-import com.example.serenitydr.ui.theme.SerenityDrTheme
 import com.example.serenitydr.ui.screens.uiScreen.MainScreen
-
-//Comment
+import com.example.serenitydr.ui.theme.SerenityDrTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,16 +28,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-/*@Preview(showBackground = true)
-@Composable
-fun PreviewViewRouteScreen() {
-    ViewRouteScreen()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewAddRouteScreen() {
-    SaveRouteScreen()
-}*/
-
