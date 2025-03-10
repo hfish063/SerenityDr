@@ -14,11 +14,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.serenitydr.model.Route
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 
 @Composable
 
-fun ViewAllRoutesScreen(viewModel: ListAllRoutesViewModel = viewModel()) {
+fun ViewAllRoutesScreen(viewModel: ListAllRoutesViewModel = viewModel(), navController: NavController) {
     val routes by remember { derivedStateOf { viewModel.routes } }
     val isLoading by remember { derivedStateOf { viewModel.isLoading } }
     val errorMessage by remember { derivedStateOf { viewModel.errorMessage } }

@@ -24,11 +24,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.serenitydr.ui.screens.addRouteScreen.SaveRouteScreen
-import com.example.serenitydr.ui.screens.viewRouteScreen.ViewRouteScreen
+import com.example.serenitydr.ui.screens.listAllRoutesScreen.ViewAllRoutesScreen
+import com.example.serenitydr.ui.screens.listAllRoutesScreen.ListAllRoutesViewModel
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.Image
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.serenitydr.R
 
 
@@ -36,28 +36,26 @@ import com.example.serenitydr.R
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
     val contentNavController = rememberNavController()
+
     val navItemList = listOf(
         NavItem(label = "Explore", icon = ImageVector.vectorResource(id = R.drawable.explore_24px), route = "viewRoute"),
-        NavItem(label = "Add", Icons.Default.Add, route = "saveRoute"),
+        NavItem(label = "Add", icon = Icons.Default.Add, route = "saveRoute"),
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            HorizontalDivider(thickness = 2.dp)
-            NavigationBar(
-                containerColor = Color.Unspecified
-            ) {
+            NavigationBar(containerColor = Color.Unspecified) {
                 navItemList.forEachIndexed { index, navItem ->
                     NavigationBarItem(
                         selected = selectedIndex == index,
                         onClick = {
                             selectedIndex = index
                             contentNavController.navigate(navItem.route) {
-                                // Ensures we don't stack multiple instances of the same screen
-                                popUpTo(contentNavController.graph.startDestinationId) { inclusive = false }
+                                popUpTo("viewRoute") { inclusive = false } // Keeps Explore screen in history
                                 launchSingleTop = true
+                                restoreState = true  // Restores previous state instead of recreating screen
                             }
                         },
                         icon = {
@@ -81,8 +79,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
 @Composable
 fun ContentNavigationGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(navController = navController, startDestination = "viewRoute", modifier = modifier) {
-        composable("viewRoute") { ViewRouteScreen(0, navController) }
-        composable("saveRoute") { SaveRouteScreen(navController) }
+        composable("viewRoute") {
+            val viewModel: ListAllRoutesViewModel = viewModel()
+            ViewAllRoutesScreen(viewModel, navController)  // Ensure navController is passed
+        }
+        composable("saveRoute") {
+            SaveRouteScreen(navController)  // Ensure navController is passed
+        }
     }
 }
-

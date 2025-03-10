@@ -28,7 +28,7 @@ import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun ViewRouteScreen(routeId: Long = 0L, navController: NavController) {
+fun ViewRouteScreen(routeId: Long = 0L) {
     val routeScreenViewModel: ViewRouteScreenViewModel = viewModel()
     val routeDetails by remember { routeScreenViewModel.routeState }
     
