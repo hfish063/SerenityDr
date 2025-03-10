@@ -15,6 +15,8 @@ import com.example.serenitydr.ui.screens.viewRouteScreen.ViewRouteScreen
 import com.example.serenitydr.ui.theme.SerenityDrTheme
 import com.example.serenitydr.ui.screens.uiScreen.MainScreen
 
+//Comment
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
