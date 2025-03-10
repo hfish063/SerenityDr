@@ -24,7 +24,7 @@ class RouteService(private val routeRepository: RouteRepository, private val coo
         return result.get()
     }
 
-    fun saveRoute(route: RouteDto): Route {
+   fun saveRoute(route: RouteDto): Route {
         val savedRoute = routeRepository.save(Route(title = route.title, description = route.description, uid = route.uid))
         val coordinateEntities: MutableList<Coordinate> = mutableListOf()
 

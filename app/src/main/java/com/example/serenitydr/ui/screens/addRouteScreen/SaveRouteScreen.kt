@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.serenitydr.ui.theme.Primary
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -31,16 +32,15 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 
-
 @Composable
-fun SaveRouteScreen() {
+fun SaveRouteScreen(navController: NavController) {
     val saveRouteViewModel: SaveRouteScreenViewModel = viewModel()
     val routeDetails by remember { saveRouteViewModel.routeState }
     val temp = LatLng(34.2164, -119.0376)
     val cameraPos = rememberCameraPositionState() {
         position = CameraPosition.fromLatLngZoom(temp, 15f)
     }
-    
+
     val description: String = routeDetails.route.description ?: ""
 
     Column(
@@ -78,7 +78,6 @@ fun SaveRouteScreen() {
                     endCap = RoundCap(),
                     startCap = RoundCap()
                 )
-                //do google map calls here?
                 routeDetails.route.coordinates.forEach { routeCoord ->
                     Marker(
                         state = MarkerState(
