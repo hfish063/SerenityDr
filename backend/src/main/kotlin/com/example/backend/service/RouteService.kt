@@ -1,5 +1,6 @@
 package com.example.backend.service
 
+import com.example.backend.dto.RouteDto
 import com.example.backend.entity.Coordinate
 import com.example.backend.entity.Route
 import com.example.backend.error.EntityNotFoundException
@@ -23,8 +24,8 @@ class RouteService(private val routeRepository: RouteRepository, private val coo
         return result.get()
     }
 
-    fun saveRoute(route: Route): Route {
-        val savedRoute = routeRepository.save(route)
+    fun saveRoute(route: RouteDto): Route {
+        val savedRoute = routeRepository.save(Route(title = route.title, description = route.description, uid = route.uid))
         val coordinateEntities: MutableList<Coordinate> = mutableListOf()
 
         route.coordinates.forEach { coordinateDto ->
