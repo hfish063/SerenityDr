@@ -14,7 +14,7 @@ data class ViewRouteScreenState(
     val error: String? = null
 )
 
-class ViewRouteScreenViewModel : ViewModel() {
+class ViewRouteScreenViewModel(private val routeId: Long) : ViewModel() {
     private val _routeState = mutableStateOf(ViewRouteScreenState())
     val routeState: State<ViewRouteScreenState> = _routeState
 
@@ -33,7 +33,7 @@ class ViewRouteScreenViewModel : ViewModel() {
     private fun fetchRoute() {
         viewModelScope.launch {
             try {
-                val response = routeApiService.findRouteById(1).body()
+                val response = routeApiService.findRouteById(routeId).body()
                 setSuccessfulResponse(response)
             } catch (e: Exception) {
                 setError(e)
