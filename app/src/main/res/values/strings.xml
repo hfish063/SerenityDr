@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Serenity Dr</string>
+    <string name="title_activity_route_add">RouteAdd</string>
 </resources>
