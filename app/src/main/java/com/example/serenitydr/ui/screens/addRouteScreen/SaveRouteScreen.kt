@@ -52,9 +52,12 @@ fun SaveRouteScreen(navController: NavController, locationUtils: LocationUtils) 
 
     val description: String = routeDetails.route.description ?: ""
 
-    // TODO: Make location request before requesting update(s)
+    // TODO: handle state updates for Google Maps camera positioning
     RequestLocationPermissions(onPermissionGranted = {
-        locationUtils.getCurrentLocation(locationViewModel)
+        if (!locationUtils.initialRequestSent) {
+            locationUtils.updateCurrentLocation(locationViewModel)
+        }
+        locationUtils.updateCurrentLocation(locationViewModel)
     }, onPermissionDenied = {})
 
     Column(
@@ -62,8 +65,6 @@ fun SaveRouteScreen(navController: NavController, locationUtils: LocationUtils) 
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
     ) {
-        Button(onClick = { locationUtils.getCurrentLocation(locationViewModel) }) { Text("Get Location") }
-
         TextField(
             value = routeDetails.route.title,
             singleLine = true,

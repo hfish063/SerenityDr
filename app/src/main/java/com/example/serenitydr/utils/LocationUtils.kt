@@ -1,12 +1,9 @@
 package com.example.serenitydr.utils
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Looper
 import android.util.Log
-import androidx.core.app.ActivityCompat
 import com.example.serenitydr.ui.screens.addRouteScreen.LocationViewModel
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -15,11 +12,11 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
 
-class LocationUtils(private val context: Context) {
+class LocationUtils(private val context: Context, var initialRequestSent: Boolean = false) {
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
     @SuppressLint("MissingPermission")
-    fun getCurrentLocation(
+    fun updateCurrentLocation(
         locationViewModel: LocationViewModel
     ) {
         val accuracy = Priority.PRIORITY_BALANCED_POWER_ACCURACY
@@ -48,14 +45,6 @@ class LocationUtils(private val context: Context) {
             locationCallback,
             Looper.getMainLooper()
         )
-    }
-
-    fun areLocationPermissionsGranted(): Boolean {
-        return (ActivityCompat.checkSelfPermission(
-            context, Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED)
+        initialRequestSent = true
     }
 }
