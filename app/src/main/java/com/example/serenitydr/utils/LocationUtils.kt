@@ -37,7 +37,7 @@ class LocationUtils(private val context: Context, var initialRequestSent: Boolea
         }
 
         val locationRequest = LocationRequest.Builder(
-            accuracy, 1000
+            accuracy, 5000
         ).build()
 
         fusedLocationClient.requestLocationUpdates(
