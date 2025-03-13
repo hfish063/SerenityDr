@@ -20,7 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.serenitydr.ui.composables.RequestLocationPermissions
 import com.example.serenitydr.ui.theme.Primary
+import com.example.serenitydr.utils.LocationUtils
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.RoundCap
@@ -33,21 +35,35 @@ import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun SaveRouteScreen(navController: NavController) {
+fun SaveRouteScreen(navController: NavController, locationUtils: LocationUtils) {
     val saveRouteViewModel: SaveRouteScreenViewModel = viewModel()
+    val locationViewModel: LocationViewModel = viewModel()
     val routeDetails by remember { saveRouteViewModel.routeState }
-    val temp = LatLng(34.2164, -119.0376)
+    val currLocation = locationViewModel.location.value
+
     val cameraPos = rememberCameraPositionState() {
-        position = CameraPosition.fromLatLngZoom(temp, 15f)
+        position = CameraPosition.fromLatLngZoom(
+            currLocation ?: LatLng(
+                34.2164,
+                -119.0376
+            ), 15f
+        )
     }
 
     val description: String = routeDetails.route.description ?: ""
+
+    // TODO: Make location request before requesting update(s)
+    RequestLocationPermissions(onPermissionGranted = {
+        locationUtils.getCurrentLocation(locationViewModel)
+    }, onPermissionDenied = {})
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
     ) {
+        Button(onClick = { locationUtils.getCurrentLocation(locationViewModel) }) { Text("Get Location") }
+
         TextField(
             value = routeDetails.route.title,
             singleLine = true,
@@ -68,7 +84,10 @@ fun SaveRouteScreen(navController: NavController) {
                 cameraPositionState = cameraPos,
                 properties = MapProperties(mapType = MapType.NORMAL),
                 onMapClick = { latLng ->
-                    saveRouteViewModel.addCoord(lat = latLng.latitude, lng = latLng.longitude)
+                    saveRouteViewModel.addCoord(
+                        lat = latLng.latitude,
+                        lng = latLng.longitude
+                    )
                 }
             ) {
                 Polyline(
