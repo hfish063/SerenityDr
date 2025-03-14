@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 
 
+// TODO: notify user if Location Services are disabled in Android settings
 @Composable
 fun RequestLocationPermissions(
     onPermissionGranted: () -> Unit,
@@ -14,9 +15,9 @@ fun RequestLocationPermissions(
 ) {
     val locationPermissionLauncher =
         rememberLauncherForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
+            contract = ActivityResultContracts.RequestMultiplePermissions()
         ) { permissionsMap ->
-            val arePermissionsGranted = permissionsMap.values.reduce { acc, next -> acc && next }
+            val arePermissionsGranted = permissionsMap.values.all { it }
 
             if (arePermissionsGranted) {
                 onPermissionGranted.invoke()

@@ -4,10 +4,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 
-data class LocationData(private val latitude: Double, private val longitude: Double)
+data class LocationState(
+    val location: LatLng = LatLng(
+        34.2164,
+        -119.0376
+    ),
+    val error: String? = null
+)
 
 class LocationViewModel : ViewModel() {
-    private val _location = mutableStateOf<LatLng?>(null)
+    private val _location = mutableStateOf<LatLng>(
+        LatLng(
+            34.2164,
+            -119.0376
+        )
+    )
     val location = _location
 
     fun updateLocation(newLocation: LatLng) {
