@@ -121,8 +121,6 @@ fun SaveRouteScreen(navController: NavController) {
             if (searchActive) {
                 ModalBottomSheet(onDismissRequest = { searchActive = false }) {
                     SearchBar(
-                        currValue = "",
-                        onValueChange = {},
                         onSubmit = {},
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
